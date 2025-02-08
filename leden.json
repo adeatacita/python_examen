@@ -1,0 +1,72 @@
+[
+    {
+        "naam": "Jan Jansen",
+        "geboortedatum": "1990-01-15",
+        "telefoon": "0612345678",
+        "adres": "Straatweg 12, 1234 AB, Stad\"",
+        "lidmaatschapsnummer": 1
+    },
+    {
+        "naam": "Piet de Vries",
+        "geboortedatum": "1985-05-23",
+        "telefoon": "0623456789",
+        "adres": "Dorpstraat 45, 2345 CD, Dorp",
+        "lidmaatschapsnummer": 2
+    },
+    {
+        "naam": "Sophie Meijer",
+        "geboortedatum": "2000-03-10",
+        "telefoon": "0634567890",
+        "adres": "Bovenstraat 85, 1234 AB, Stad",
+        "lidmaatschapsnummer": 3
+    },
+    {
+        "naam": "Tom van der Meer",
+        "geboortedatum": "2001-05-09",
+        "telefoon": "0645678901",
+        "adres": "Spoorweg 25, 1234 AB, Stad",
+        "lidmaatschapsnummer": 4
+    },
+    {
+        "naam": "Anna de Boer",
+        "geboortedatum": "1996-06-24",
+        "telefoon": "0656789012",
+        "adres": "Leopoldlaan 14, 1234 AB, Stad",
+        "lidmaatschapsnummer": 5
+    },
+    {
+        "naam": "Jeroen Van Dijk",
+        "geboortedatum": "1997-07-12",
+        "telefoon": "0667890123",
+        "adres": "Kerkplein 15, 6789 IJ, Dorp",
+        "lidmaatschapsnummer": 6
+    },
+    {
+        "naam": "Eva Bakker",
+        "geboortedatum": "1999-10-24",
+        "telefoon": "0678901234",
+        "adres": "Parklaan 34, 7890 JK, Stad",
+        "lidmaatschapsnummer": 7
+    },
+    {
+        "naam": "Maxim Vermeer",
+        "geboortedatum": "1999-07-08",
+        "telefoon": "0610234567",
+        "adres": "Singelstraat 90, 0123 MN, Dorp",
+        "lidmaatschapsnummer": 8
+    },
+    {
+        "naam": "Lisa Janssen",
+        "geboortedatum": "2002-07-25",
+        "telefoon": "0690123456",
+        "adres": "Molenweg 78, 9012 LM, Stad",
+        "lidmaatschapsnummer": 9
+    },
+    {
+        "naam": "Rabia Teke",
+        "geboortedatum": "2000-05-02",
+        "telefoon": "0645678924",
+        "adres": "Spoorweglaan 23, 8500, Kortrijk",
+        "lidmaatschapsnummer": 10
+    }
+]

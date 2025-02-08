@@ -1,0 +1,153 @@
+import json  # Importeer de json module om gegevens in en uit een JSON-bestand te kunnen lezen en schrijven
+
+LEDEN_BESTAND = "leden.json"  # Het bestand waarin we de ledengegevens opslaan
+
+
+# Functie om leden uit het bestand te laden
+def laad_leden():
+    try:
+        # Probeer het bestand 'leden.json' te openen in leesmodus
+        with open(LEDEN_BESTAND, "r") as f:
+            return json.load(f)  # Laad de gegevens in het bestand en retourneer ze als een Python-object (lijst of dict)
+    except FileNotFoundError:
+        return []  # Als het bestand niet bestaat, retourneer een lege lijst
+
+
+# Functie om leden naar het bestand op te slaan
+def bewaar_leden(leden):
+    with open(LEDEN_BESTAND, "w") as f:
+        json.dump(leden, f, indent=4)  # Schrijf de ledenlijst naar het bestand in een mooi geformatteerde JSON-indeling
+
+
+# Functie om een nieuw lid toe te voegen
+def nieuw_lid():
+    naam = input("Naam: ")  # Vraag de gebruiker om de naam van het lid in te voeren
+    geboortedatum = input("Geboortedatum (YYYY-MM-DD): ")  # Vraag de geboortedatum
+    telefoon = input("Telefoonnummer: ")  # Vraag het telefoonnummer
+    adres = input("Adres: ")  # Vraag het adres
+    
+    lidmaatschapsnummer = int(input("Lidmaatschapsnummer: "))  # Vraag het lidmaatschapsnummer, moet uniek zijn
+
+    leden = laad_leden()  # Laad de bestaande leden uit het bestand
+
+    # Controleer of het lidmaatschapsnummer al bestaat
+    for lid in leden:
+        if lid['lidmaatschapsnummer'] == lidmaatschapsnummer:
+            print("Dit lidmaatschapsnummer bestaat al, probeer een ander nummer.")  # Geef een foutmelding als het nummer al bestaat
+            return
+
+    # Voeg het nieuwe lid toe aan de lijst
+    leden.append({
+        "naam": naam,
+        "geboortedatum": geboortedatum,
+        "telefoon": telefoon,
+        "adres": adres,
+        "lidmaatschapsnummer": lidmaatschapsnummer
+    })
+
+    bewaar_leden(leden)  # Sla de bijgewerkte ledenlijst op in het bestand
+    print(f"Lid toegevoegd met lidmaatschapsnummer {lidmaatschapsnummer}!")  # Bevestig dat het lid is toegevoegd
+
+
+# Functie om de gegevens van een lid te bewerken
+def bewerk_lid():
+    leden = laad_leden()  # Laad de leden uit het bestand
+    lidmaatschapsnummer = int(input("Lidmaatschapsnummer van het te bewerken lid: "))  # Vraag naar het lidmaatschapsnummer
+
+    # Zoek het lid met het opgegeven lidmaatschapsnummer
+    for lid in leden:
+        if lid["lidmaatschapsnummer"] == lidmaatschapsnummer:
+            print(f"Huidige gegevens van {lid['naam']}: Geboortedatum: {lid['geboortedatum']}, Telefoon: {lid['telefoon']}, Adres: {lid['adres']}")  # Toon de huidige gegevens
+            
+            # Vraag om nieuwe gegevens, maar alleen als er iets is ingevoerd
+            nieuwe_geboortedatum = input(f"Nieuwe geboortedatum (leeg laten voor geen wijziging): ")
+            if nieuwe_geboortedatum:
+                lid["geboortedatum"] = nieuwe_geboortedatum
+
+            nieuwe_telefoon = input(f"Nieuwe telefoon (leeg laten voor geen wijziging): ")
+            if nieuwe_telefoon:
+                lid["telefoon"] = nieuwe_telefoon
+
+            nieuwe_adres = input(f"Nieuw adres (leeg laten voor geen wijziging): ")
+            if nieuwe_adres:
+                lid["adres"] = nieuwe_adres
+
+            bewaar_leden(leden)  # Sla de bijgewerkte ledenlijst op
+            print(f"Gegevens van {lid['naam']} zijn bijgewerkt!")  # Bevestig dat de gegevens zijn bijgewerkt
+            return  # Stop de functie
+
+    print("Lid niet gevonden.")  # Als het lid niet gevonden is
+
+
+# Functie om een lid te verwijderen
+def verwijder_lid():
+    leden = laad_leden()  # Laad de ledenlijst
+    lidmaatschapsnummer = int(input("Lidmaatschapsnummer van het te verwijderen lid: "))  # Vraag om het lidmaatschapsnummer
+
+    # Zoek het lid met het opgegeven nummer
+    for lid in leden:
+        if lid["lidmaatschapsnummer"] == lidmaatschapsnummer:
+            bevestiging = input(f"Weet je zeker dat je {lid['naam']} wilt verwijderen? (ja/nee): ")  # Vraag om bevestiging
+            if bevestiging.lower() == "ja":  # Als ja, verwijder het lid
+                leden.remove(lid)
+                bewaar_leden(leden)  # Sla de bijgewerkte lijst op
+                print(f"Lid {lid['naam']} is verwijderd!")  # Bevestig de verwijdering
+            return  # Stop de functie
+
+    print("Lid niet gevonden.")  # Als het lid niet gevonden is
+
+
+# Functie om een lid te zoeken
+def zoek_lid():
+    leden = laad_leden()  # Laad de ledenlijst
+    zoekterm = input("Zoek op naam of lidmaatschapsnummer: ")  # Vraag om een zoekterm (naam of nummer)
+
+    # Zoek naar het lid met de opgegeven zoekterm
+    for lid in leden:
+        if zoekterm.lower() in lid["naam"].lower() or str(lid["lidmaatschapsnummer"]) == zoekterm:
+            print(f"Lid gevonden: {lid['naam']}, Geboortedatum: {lid['geboortedatum']}, Telefoon: {lid['telefoon']}, Adres: {lid['adres']}, Lidmaatschapsnummer: {lid['lidmaatschapsnummer']}")  # Toon de gegevens
+            return  # Stop de functie
+
+    print("Lid niet gevonden.")  # Als het lid niet gevonden is
+
+
+# Functie om alle leden te tonen
+def toon_leden():
+    leden = laad_leden()  # Laad de ledenlijst
+    for lid in leden:
+        print(f"{lid['lidmaatschapsnummer']}: {lid['naam']}")  # Toon het lidmaatschapsnummer en de naam
+
+
+# Hoofdmenu voor de gebruiker
+def menu():
+    while True:
+        # Toon het menu
+        print("\n1. Nieuw lid toevoegen")
+        print("2. Bestaand lid bewerken")
+        print("3. Lid verwijderen")
+        print("4. Lid zoeken")
+        print("5. Alle leden tonen")
+        print("6. Afsluiten")
+        
+        keuze = input("Kies een optie: ")  # Vraag om een keuze van de gebruiker
+
+        # Afhankelijk van de keuze roep de juiste functie aan
+        if keuze == "1":
+            nieuw_lid()
+        elif keuze == "2":
+            bewerk_lid()
+        elif keuze == "3":
+            verwijder_lid()
+        elif keuze == "4":
+            zoek_lid()
+        elif keuze == "5":
+            toon_leden()
+        elif keuze == "6":
+            break  # Stop de loop en sluit het programma af
+        else:
+            print("Ongeldige keuze, probeer opnieuw.")  # Als de keuze ongeldig is
+
+
+# Start het programma
+if __name__ == "__main__":
+    menu()  # Roep het menu aan zodat de gebruiker een keuze kan maken
